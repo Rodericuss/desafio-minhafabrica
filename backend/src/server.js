@@ -1,9 +1,23 @@
 import { app } from "./app.js";
+import { connectToDatabase } from "./config/database.js";
+import { env } from "./config/environment.js";
 
-const port = Number(process.env.PORT ?? 3001);
+async function startServer() {
+  try {
+    await connectToDatabase(env.mongodbUri);
 
-const server = app.listen(port, () => {
-  console.log(`Backend running on port ${port}`);
-});
+    app.listen(env.port, () => {
+      console.log(`Backend running on port ${env.port}`);
+    });
+  } catch (error) {
+    console.error("Unable to start the backend");
 
-export { server };
+    if (env.nodeEnv !== "production" && error instanceof Error) {
+      console.error(error.message);
+    }
+
+    process.exitCode = 1;
+  }
+}
+
+await startServer();
