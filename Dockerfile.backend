@@ -1,0 +1,23 @@
+FROM node:24-alpine
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+COPY backend/package.json backend/package.json
+COPY frontend/package.json frontend/package.json
+
+RUN npm ci --omit=dev --workspace=backend \
+  && npm cache clean --force
+
+COPY backend/src backend/src
+
+WORKDIR /app/backend
+
+ENV NODE_ENV=production
+ENV PORT=3001
+
+EXPOSE 3001
+
+USER node
+
+CMD ["node", "src/server.js"]

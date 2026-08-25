@@ -1,0 +1,17 @@
+app = "crud-minhafabrica-db-rodericuss"
+primary_region = "gru"
+
+[build]
+  image = "mongo:8"
+
+[processes]
+  app = "mongod --ipv6 --bind_ip_all"
+
+[[mounts]]
+  source = "mongo_data"
+  destination = "/data/db"
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory = "512mb"

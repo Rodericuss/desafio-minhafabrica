@@ -1,0 +1,7 @@
+*
+!package.json
+!package-lock.json
+!backend/package.json
+!backend/src/
+!backend/src/**
+!frontend/package.json

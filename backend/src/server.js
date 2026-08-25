@@ -6,7 +6,7 @@ async function startServer() {
   try {
     await connectToDatabase(env.mongodbUri);
 
-    app.listen(env.port, () => {
+    app.listen(env.port, "0.0.0.0", () => {
       console.log(`Backend running on port ${env.port}`);
     });
   } catch (error) {
