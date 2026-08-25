@@ -4,6 +4,7 @@ dotenv.config({ quiet: true });
 
 const DEFAULT_PORT = 3001;
 const DEFAULT_FRONTEND_URL = "http://localhost:3000";
+const DEFAULT_JWT_EXPIRES_IN = "1d";
 
 function readRequiredVariable(name) {
   const value = process.env[name]?.trim();
@@ -33,6 +34,8 @@ const env = Object.freeze({
   nodeEnv: process.env.NODE_ENV ?? "development",
   port: readPort(process.env.PORT),
   mongodbUri: readRequiredVariable("MONGODB_URI"),
+  jwtSecret: readRequiredVariable("JWT_SECRET"),
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN?.trim() || DEFAULT_JWT_EXPIRES_IN,
   frontendUrl: process.env.FRONTEND_URL?.trim() || DEFAULT_FRONTEND_URL,
 });
 

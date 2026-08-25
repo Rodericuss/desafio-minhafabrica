@@ -12,6 +12,10 @@ async function findByEmail(email) {
   return User.findOne({ email });
 }
 
+async function findByEmailWithPassword(email) {
+  return User.findOne({ email }).select("+passwordHash");
+}
+
 async function create(userData) {
   return User.create(userData);
 }
@@ -31,6 +35,7 @@ const userRepository = Object.freeze({
   findAll,
   findById,
   findByEmail,
+  findByEmailWithPassword,
   create,
   updateById,
   deleteById,

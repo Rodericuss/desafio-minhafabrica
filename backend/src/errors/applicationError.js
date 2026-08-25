@@ -2,6 +2,7 @@ const ERROR_CODES = Object.freeze({
   validation: "VALIDATION_ERROR",
   notFound: "NOT_FOUND",
   conflict: "CONFLICT",
+  unauthorized: "UNAUTHORIZED",
 });
 
 class ApplicationError extends Error {
