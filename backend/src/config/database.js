@@ -8,4 +8,8 @@ async function connectToDatabase(mongodbUri) {
   console.log("MongoDB connected");
 }
 
-export { connectToDatabase };
+async function disconnectFromDatabase() {
+  await mongoose.disconnect();
+}
+
+export { connectToDatabase, disconnectFromDatabase };
