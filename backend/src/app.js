@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import { env } from "./config/environment.js";
+import { errorHandler, notFoundHandler } from "./middlewares/errorHandler.js";
 import { authRouter } from "./routes/authRoutes.js";
 import { dashboardRouter } from "./routes/dashboardRoutes.js";
 import { productRouter } from "./routes/productRoutes.js";
@@ -21,12 +22,7 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/products", productRouter);
 app.use("/api/v1/dashboard", dashboardRouter);
 
-app.use((error, _request, response, next) => {
-  if (error?.type === "entity.parse.failed") {
-    return response.status(400).json({ message: "Request body must contain valid JSON" });
-  }
-
-  return next(error);
-});
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 export { app };
