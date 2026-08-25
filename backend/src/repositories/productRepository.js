@@ -23,12 +23,17 @@ async function deleteById(id) {
   return Product.findByIdAndDelete(id);
 }
 
+async function count() {
+  return Product.countDocuments();
+}
+
 const productRepository = Object.freeze({
   findAll,
   findById,
   create,
   updateById,
   deleteById,
+  count,
 });
 
 export { productRepository };

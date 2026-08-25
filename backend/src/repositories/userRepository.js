@@ -31,6 +31,10 @@ async function deleteById(id) {
   return User.findByIdAndDelete(id);
 }
 
+async function count() {
+  return User.countDocuments();
+}
+
 const userRepository = Object.freeze({
   findAll,
   findById,
@@ -39,6 +43,7 @@ const userRepository = Object.freeze({
   create,
   updateById,
   deleteById,
+  count,
 });
 
 export { userRepository };
