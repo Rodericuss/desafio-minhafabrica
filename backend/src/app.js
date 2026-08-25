@@ -1,6 +1,7 @@
 import cors from "cors";
 import express from "express";
 import { env } from "./config/environment.js";
+import { userRouter } from "./routes/userRoutes.js";
 
 const app = express();
 
@@ -10,6 +11,16 @@ app.use(express.json({ limit: "1mb" }));
 
 app.get("/health", (_request, response) => {
   response.status(200).json({ status: "ok" });
+});
+
+app.use("/api/v1/users", userRouter);
+
+app.use((error, _request, response, next) => {
+  if (error?.type === "entity.parse.failed") {
+    return response.status(400).json({ message: "Request body must contain valid JSON" });
+  }
+
+  return next(error);
 });
 
 export { app };
