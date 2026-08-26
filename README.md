@@ -144,6 +144,36 @@ npm run dev:frontend
 
 Abra `http://localhost:3000` e use as credenciais configuradas no seed.
 
+## Produção
+
+A aplicação está publicada em:
+
+- Frontend: https://crud-minhafabrica.vercel.app
+- API: https://crud-minhafabrica-api-rodericuss.fly.dev
+- Health check: https://crud-minhafabrica-api-rodericuss.fly.dev/health
+
+O frontend está na Vercel e a API/MongoDB estão na organização Fly `vitor-785`.
+O MongoDB roda em uma máquina privada, sem IP público, com um volume criptografado
+de 1 GB. A API acessa o banco pelo DNS privado do Fly e aceita CORS somente da
+origem do frontend.
+
+O administrador de demonstração usa o e-mail `admin@minhafabrica.com`. A senha é
+entregue separadamente e não é armazenada neste repositório.
+
+Para encerrar os recursos temporários após a apresentação, confirme os nomes antes
+de executar:
+
+```bash
+flyctl machine destroy 28654122a99e68 --app crud-minhafabrica-db-rodericuss
+flyctl machine destroy 48e7459c4776e8 --app crud-minhafabrica-api-rodericuss
+flyctl volumes destroy vol_vp2x35xpnn5l1xk4 --app crud-minhafabrica-db-rodericuss
+flyctl apps destroy crud-minhafabrica-db-rodericuss
+flyctl apps destroy crud-minhafabrica-api-rodericuss
+```
+
+Esses comandos removem os dados persistidos do MongoDB. Se quiser manter o estado
+para outra demonstração, pare apenas as máquinas e preserve o volume.
+
 ## Endpoints
 
 ```text
